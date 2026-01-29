@@ -89,3 +89,60 @@ DIVIDE(
     0
 )
 ```
+
+## TIME TO CHURN
+
+## Churned Customers
+```
+Churned Customers = 
+CALCULATE(
+    DISTINCTCOUNT(fact_subscription[customer_id]),
+    fact_subscription[churned] = TRUE
+)
+```
+
+### Churn Months
+```
+Churn in 0-3 Months = 
+CALCULATE(
+    [Churned Customers],
+    fact_subscription[tenure_months] >= 0,
+    fact_subscription[tenure_months] <= 3
+)
+
+Churn in 4-6 Months = 
+CALCULATE(
+    [Churned Customers],
+    fact_subscription[tenure_months] >= 4,
+    fact_subscription[tenure_months] <= 6
+)
+
+Churn in 7-12 Months = 
+CALCULATE(
+    [Churned Customers],
+    fact_subscription[tenure_months] >= 7,
+    fact_subscription[tenure_months] <= 12
+)
+
+Pct Early Churn (0-6mo) = 
+DIVIDE(
+    [Churn in 0-3 Months] + [Churn in 4-6 Months],
+    [Churned Customers],
+    0
+)
+```
+
+## SEGMENT CHURN
+
+### Segment Churn Rate
+```
+Segment Churn Rate = 
+VAR TotalCustomers = DISTINCTCOUNT(fact_subscription[customer_id])
+VAR ChurnedCustomers = 
+    CALCULATE(
+        DISTINCTCOUNT(fact_subscription[customer_id]),
+        fact_subscription[churned] = TRUE
+    )
+RETURN
+    DIVIDE(ChurnedCustomers, TotalCustomers, 0)
+```
