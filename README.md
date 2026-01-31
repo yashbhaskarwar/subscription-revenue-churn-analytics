@@ -27,3 +27,80 @@ The analytics layer follows a star schema optimized for business intelligence qu
 - `dim_service` - Service configurations and bundle tiers
 - `dim_contract` - Contract terms and billing details
 - `dim_date` - Time dimension for temporal analysis
+
+## Project Structure
+```
+subscription-revenue-churn-analytics/
+│
+├── README.md                          
+│
+├── sql/
+│   ├── schema/                     
+│   │   ├── create_staging.sql
+│   │   ├── create_dimensions.sql
+│   │   └── create_facts.sql
+│   │
+│   ├── transformations/            
+│   │   ├── populate_dim_date.sql
+│   │   ├── load_dimensions.sql
+│   │   ├── load_fact_subscriptions.sql
+│   │   └── build_subscription_snapshots.sql
+│   │
+│   └── analytics/                 
+│       ├── mrr_analysis.sql
+│       ├── churn_metrics.sql
+│       ├── cohort_analysis.sql
+│       ├── customer_ltv.sql
+│       ├── net_revenue_retention.sql
+│       └── arpu_segmentation.sql
+│
+└── powerbi/
+    ├── DAX measure for Executive Dashbaord.md
+    ├── DAX measure for Retention Dashboard.md
+    └── DAX measure for Segment dashboard.md      
+```
+
+## How to run
+
+### Database Setup
+
+1. Create database and schemas
+```sql
+CREATE DATABASE subscription_analytics;
+\c subscription_analytics;
+CREATE SCHEMA staging;
+CREATE SCHEMA analytics;
+```
+
+2. Run schema creation scripts
+```bash
+psql -d subscription_analytics -f sql/schema/create_staging.sql
+psql -d subscription_analytics -f sql/schema/create_dimensions.sql
+psql -d subscription_analytics -f sql/schema/create_facts.sql
+```
+
+3. Load source data into staging
+```sql
+COPY staging.telco_customer_raw 
+FROM '/path/to/Telco Customer Churn.csv'    -- Update Datset path
+DELIMITER ',' 
+CSV HEADER;
+```
+
+4. Run transformations
+```bash
+psql -d subscription_analytics -f sql/transformations/populate_dim_date.sql
+psql -d subscription_analytics -f sql/transformations/load_dimensions.sql
+psql -d subscription_analytics -f sql/transformations/load_fact_subscriptions.sql
+psql -d subscription_analytics -f sql/transformations/build_subscription_snapshots.sql
+```
+
+5. Validate data load
+```sql
+-- Check record counts
+SELECT 'fact_subscription' AS table_name, COUNT(*) FROM analytics.fact_subscription
+UNION ALL
+SELECT 'fact_subscription_monthly_snapshot', COUNT(*) FROM analytics.fact_subscription_monthly_snapshot
+UNION ALL
+SELECT 'dim_customer', COUNT(*) FROM analytics.dim_customer;
+```
