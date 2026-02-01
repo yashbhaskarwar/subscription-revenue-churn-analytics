@@ -104,3 +104,58 @@ SELECT 'fact_subscription_monthly_snapshot', COUNT(*) FROM analytics.fact_subscr
 UNION ALL
 SELECT 'dim_customer', COUNT(*) FROM analytics.dim_customer;
 ```
+
+### Analytics Queries
+
+1. MRR Analysis
+```sql
+bashpsql -d subscription_analytics -f sql/analytics/mrr_analysis.sql
+```
+
+2. Churn Metrics
+```sql
+bashpsql -d subscription_analytics -f sql/analytics/churn_metrics.sql
+```
+
+3. Cohort Analysis
+```sql
+bashpsql -d subscription_analytics -f sql/analytics/cohort_analysis.sql
+```
+
+4. Customer Lifetime Value
+```sql
+bashpsql -d subscription_analytics -f sql/analytics/customer_ltv.sql
+```
+
+5. Net Revenue Retention
+```sql
+bashpsql -d subscription_analytics -f sql/analytics/net_revenue_retention.sql
+```
+
+6. ARPU & Segmentation
+```sql
+bashpsql -d subscription_analytics -f sql/analytics/arpu_segmentation.sql
+```
+
+## Power BI Dashboards
+
+1. Executive Overview
+- MRR trend with month-over-month growth
+- Active customer count and net change
+- Churn rate trends 
+- ARPU evolution
+- Key performance indicators with targets
+
+2. Retention & Cohort Analysis
+- Cohort retention heatmap
+- Revenue retention curves
+- Time-to-churn distribution
+- Churn rate by segment
+- Cohort quality comparison
+
+3. Plan & Segment Performance
+- MRR mix by contract type and service tier
+- Customer distribution across segments
+- Segment-level churn rates
+- ARPU by customer segment
+- High-value customer analysis
