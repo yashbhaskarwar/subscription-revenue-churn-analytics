@@ -159,3 +159,29 @@ bashpsql -d subscription_analytics -f sql/analytics/arpu_segmentation.sql
 - Segment-level churn rates
 - ARPU by customer segment
 - High-value customer analysis
+
+
+## Power BI Dashboard Screenshots
+
+### 1. Executive Dashboard
+**Key Highlights**
+- Designed KPI driven dashboard tracking MRR, churn, ARR and customer growth using DAX based measures.
+- Built month-over-month trend analysis to monitor revenue velocity and customer acquisition patterns.
+- Structured visuals to align revenue growth with active customer expansion for clear performance tracking.
+<img width="1281" height="727" alt="Executive Dashboard" src="https://github.com/user-attachments/assets/e8a569a2-a980-4459-9008-5f30cc731c4a" />
+
+### 2. Retention Dashboard
+**Key Highlights**
+- Developed cohort based retention matrix to analyze customer behavior over time.
+- Calculated logo and revenue retention metrics to compare churn impact across lifecycle stages.
+- Identified early churn concentration using tenure based distribution analysis.
+<img width="1086" height="737" alt="Retention Dashboard" src="https://github.com/user-attachments/assets/eb9e0d05-8673-4d65-b96b-e8a589c77907" />
+
+### 3. Segment Dashboard
+**Key Highlights**
+- Implemented snapshot based segmentation to analyze revenue and customer mix by service tier.
+- Modeled ARPU and predictive LTV metrics to evaluate monetization efficiency across segments.
+- Built value tier classification logic using DAX to profile high, medium and low value customers.
+<img width="1077" height="739" alt="Segment Dashboard" src="https://github.com/user-attachments/assets/dab3c426-ada9-41e1-b2c2-245fa55e7d2e" />
+
+
